@@ -2,6 +2,7 @@ import React from 'react';
 import { Text, View, Image } from 'react-native';
 import { Card, Button } from 'react-native-elements';
 import ASL from "../services/asl-svg.services";
+// import returnRandomLetter from "../service/letters-utility";
 
 class GameScreen extends React.Component {
   constructor(props) {
