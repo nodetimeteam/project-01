@@ -3,12 +3,15 @@
  */
 
 const ASL = {
-    A: require('../assets/ASL/ASL_A.png'),
-    B: require('../assets/ASL/ASL_B.png'),
-    0: require('../assets/ASL/ASL_0_Num.png'),
-    1: require('../assets/ASL/ASL_1_Num.png'),
-    2: require('../assets/ASL/ASL_2_Num.png'),
-    3: require('../assets/ASL/ASL_3_Num.png'),
+  A: require('../assets/ASL/ASL_A.png'),
+  B: require('../assets/ASL/ASL_B.png'),
+  C: require('../assets/ASL/ASL_C.png'),
+  D: require('../assets/ASL/ASL_D.png'),
+  E: require('../assets/ASL/ASL_E.png'),
+  0: require('../assets/ASL/ASL_0_Num.png'),
+  1: require('../assets/ASL/ASL_1_Num.png'),
+  2: require('../assets/ASL/ASL_2_Num.png'),
+  3: require('../assets/ASL/ASL_3_Num.png'),
 };
 
 export default ASL;

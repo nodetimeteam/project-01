@@ -14,8 +14,7 @@ class WorldScreen extends React.Component {
 
   toggleFunction = () => {
     let list = [
-      "A", "B",
-      //  "C", "D", "E",
+      "A", "B", "C", "D", "E",
       // "F", "G", "H", "I", "J",
       // "K", "L", "M", "N", "O",
       // "P", "Q", "R", "S", "T",
