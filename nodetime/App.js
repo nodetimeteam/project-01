@@ -67,6 +67,136 @@ function streamingMicRecognize(encoding, sampleRateHertz, languageCode) {
   // [END speech_streaming_mic_recognize]
 }
 
+require(`yargs`)
+  .demand(1)
+  .command(
+    `sync <filename>`,
+    `Detects speech in a local audio file.`,
+    {},
+    opts =>
+      syncRecognize(
+        opts.filename,
+        opts.encoding,
+        opts.sampleRateHertz,
+        opts.languageCode
+      )
+  )
+  .command(
+    `sync-gcs <gcsUri>`,
+    `Detects speech in an audio file located in a Google Cloud Storage bucket.`,
+    {},
+    opts =>
+      syncRecognizeGCS(
+        opts.gcsUri,
+        opts.encoding,
+        opts.sampleRateHertz,
+        opts.languageCode
+      )
+  )
+  .command(
+    `sync-words <filename>`,
+    `Detects speech in a local audio file with word time offset.`,
+    {},
+    opts =>
+      syncRecognizeWords(
+        opts.filename,
+        opts.encoding,
+        opts.sampleRateHertz,
+        opts.languageCode
+      )
+  )
+  .command(
+    `async <filename>`,
+    `Creates a job to detect speech in a local audio file, and waits for the job to complete.`,
+    {},
+    opts =>
+      asyncRecognize(
+        opts.filename,
+        opts.encoding,
+        opts.sampleRateHertz,
+        opts.languageCode
+      )
+  )
+  .command(
+    `async-gcs <gcsUri>`,
+    `Creates a job to detect speech in an audio file located in a Google Cloud Storage bucket, and waits for the job to complete.`,
+    {},
+    opts =>
+      asyncRecognizeGCS(
+        opts.gcsUri,
+        opts.encoding,
+        opts.sampleRateHertz,
+        opts.languageCode
+      )
+  )
+  .command(
+    `async-gcs-words <gcsUri>`,
+    `Creates a job to detect speech  with word time offset in an audio file located in a Google Cloud Storage bucket, and waits for the job to complete.`,
+    {},
+    opts =>
+      asyncRecognizeGCSWords(
+        opts.gcsUri,
+        opts.encoding,
+        opts.sampleRateHertz,
+        opts.languageCode
+      )
+  )
+  .command(
+    `stream <filename>`,
+    `Detects speech in a local audio file by streaming it to the Speech API.`,
+    {},
+    opts =>
+      streamingRecognize(
+        opts.filename,
+        opts.encoding,
+        opts.sampleRateHertz,
+        opts.languageCode
+      )
+  )
+  .command(
+    `listen`,
+    `Detects speech in a microphone input stream. This command requires that you have SoX installed and available in your $PATH. See https://www.npmjs.com/package/node-record-lpcm16#dependencies`,
+    {},
+    opts =>
+      streamingMicRecognize(
+        opts.encoding,
+        opts.sampleRateHertz,
+        opts.languageCode
+      )
+  )
+  .options({
+    encoding: {
+      alias: 'e',
+      default: 'LINEAR16',
+      global: true,
+      requiresArg: true,
+      type: 'string',
+    },
+    sampleRateHertz: {
+      alias: 'r',
+      default: 16000,
+      global: true,
+      requiresArg: true,
+      type: 'number',
+    },
+    languageCode: {
+      alias: 'l',
+      default: 'en-US',
+      global: true,
+      requiresArg: true,
+      type: 'string',
+    },
+  })
+  .example(`node $0 sync ./resources/audio.raw -e LINEAR16 -r 16000`)
+  .example(`node $0 async-gcs gs://gcs-test-data/vr.flac -e FLAC -r 16000`)
+  .example(`node $0 stream ./resources/audio.raw  -e LINEAR16 -r 16000`)
+  .example(`node $0 listen`)
+  .wrap(120)
+  .recommendCommands()
+  .epilogue(`For more information, see https://cloud.google.com/speech/docs`)
+  .help()
+  .strict().argv;
+
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' +
     'Cmd+D or shake for dev menu',
