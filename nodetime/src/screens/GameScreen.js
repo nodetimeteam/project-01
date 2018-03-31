@@ -3,7 +3,7 @@ import { Text, View, Image } from 'react-native';
 import { Card, Button } from 'react-native-elements';
 import ASL from "../services/asl-svg.services";
 
-class WorldScreen extends React.Component {
+class GameScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -15,14 +15,15 @@ class WorldScreen extends React.Component {
   toggleFunction = () => {
     let list = [
       "A", "B", "C", "D", "E",
-      // "F", "G", "H", "I", "J",
-      // "K", "L", "M", "N", "O",
-      // "P", "Q", "R", "S", "T",
-      // "U", "V", "W", "X", "Y",
-      // "Z", 
-      0, 1, 2, 3//, 4, 5, 6, 7, 8, 9
+      "F", "G", "H", "I", "J",
+      "K", "L", "M", "N", "O",
+      "P", "Q", "R", "S", "T",
+      "U", "V", "W", "X", "Y",
+      "Z", 
+      0, 1, 2, 3, 4, 5, 6, 7, 8, 9
     ];
-    let nextIndex = list.indexOf(this.state.currentLetter) + 1
+    let nextIndex = list.indexOf(this.state.currentLetter) + 1;
+    nextIndex = (nextIndex >= list.length) ? 0 : nextIndex;     // Loops back to start when you reach end
     this.setState({currentLetter: list[nextIndex]}); 
   };
 
@@ -72,4 +73,4 @@ class WorldScreen extends React.Component {
   };
 };
 
-export default WorldScreen;
+export default GameScreen;
