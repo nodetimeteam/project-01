@@ -1,9 +1,24 @@
 import React from 'react';
 import { Text, View, Image } from 'react-native';
-import { Card } from 'react-native-elements';
+import { Card, Button } from 'react-native-elements';
 import ASL from "../services/asl-svg.services";
 
 class WorldScreen extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      currentLetter: "A"
+    }
+    
+  };
+
+  toggleFunction = () => {
+    (this.state.currentLetter === "A")
+      ? this.setState({currentLetter: "B"})
+      : this.setState({currentLetter: "A"});
+    ; 
+  };
+
   render() {
     return (
       <View
@@ -14,6 +29,10 @@ class WorldScreen extends React.Component {
           alignItems: 'center',
         }}
       >
+
+        <Button 
+          onPress={this.toggleFunction} title="Clik Me" 
+        />
 
         {/* Progress Bar (Checkmark, X, Dots) */}
         <Card
@@ -28,7 +47,7 @@ class WorldScreen extends React.Component {
           wrapperStyle={{ alignItems: 'center' }}
         >
 
-          <Image source={ASL.A} />
+          <Image source={ASL[this.state.currentLetter]} />
 
         </Card>
         {/* /ASL Image */}
