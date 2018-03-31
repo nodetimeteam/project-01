@@ -21,7 +21,7 @@ const AppNavigation = StackNavigator(
     },
   },
   {
-    initialRouteName: 'LoginScreen',
+    initialRouteName: 'WorldScreen',
   },
 );
 
