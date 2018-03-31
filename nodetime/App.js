@@ -3,9 +3,10 @@ import { StackNavigator } from 'react-navigation';
 import LoginScreen from './src/screens/LoginScreen';
 
 
+
 export default class App extends React.PureComponent {
   render() {
-   
+
 
     return (
       <AppNavigation />
@@ -14,7 +15,7 @@ export default class App extends React.PureComponent {
 }
 
 const AppNavigation = StackNavigator({
-  LoginScreen : {
+  LoginScreen: {
     screen: LoginScreen
   }
 })
