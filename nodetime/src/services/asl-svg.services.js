@@ -13,12 +13,18 @@ const ASL = {
   H: require('../assets/ASL/ASL_H.png'),
   I: require('../assets/ASL/ASL_I.png'),
   J: require('../assets/ASL/ASL_J.png'),
-
   K: require('../assets/ASL/ASL_K.png'),
   L: require('../assets/ASL/ASL_L.png'),
   M: require('../assets/ASL/ASL_M.png'),
   N: require('../assets/ASL/ASL_N.png'),
   O: require('../assets/ASL/ASL_O.png'),
+
+  P: require('../assets/ASL/ASL_P.png'),
+  Q: require('../assets/ASL/ASL_Q.png'),
+  R: require('../assets/ASL/ASL_R.png'),
+  S: require('../assets/ASL/ASL_S.png'),
+  T: require('../assets/ASL/ASL_T.png'),
+
 
   0: require('../assets/ASL/ASL_0_Num.png'),
   1: require('../assets/ASL/ASL_1_Num.png'),
