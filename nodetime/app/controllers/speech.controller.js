@@ -5,7 +5,7 @@ module.exports = {
   streamingSpeech: _streamingSpeech
 }
 
-function streamingSpeech() {
+function _streamingSpeech() {
   const record = require('node-record-lpcm16');
 
   // Imports the Google Cloud client library
