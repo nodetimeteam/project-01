@@ -230,9 +230,10 @@ export default class App extends React.PureComponent {
     //         })
     //     }}
     //   />
-    //   </View>
+    // </View>
       <AppNavigation />
-    )
+
+  )
   }
 }
 
