@@ -35,7 +35,7 @@ class GameScreen extends React.Component {
       userScore: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     };
 
-    // this.nextImage = this.nextImage.bind(this);
+    this.nextImage = this.nextImage.bind(this);
     // this.updateRemainingBar = this.updateRemainingBar.bind(this);
 
   };
@@ -89,9 +89,9 @@ class GameScreen extends React.Component {
     }
   };
 
-  // nextImage() { 
-  //   this.setState({ currentLetter: returnRandomLetter(this.state.level) });
-  // };
+  nextImage() { 
+    this.setState({ currentLetter: returnRandomLetter(this.state.level) });
+  };
 
   render() {
     let gameWindow = null;
@@ -113,10 +113,10 @@ class GameScreen extends React.Component {
         }}
       >
 
-        {/* <Button
+        <Button
           onPress={this.nextImage}
           title={"Lvl " + this.state.level}
-        /> */}
+        />
 
         {/* Progress Bar (Checkmark, X, Dots) */}
         <Card

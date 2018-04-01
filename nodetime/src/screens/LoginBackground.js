@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, Image, Text } from 'react-native'
+import { StyleSheet, View, Image, Text, Button, TouchableOpacity } from 'react-native'
 import LoginScreen from './LoginScreen'
 
 export default class LoginBackground extends Component {
@@ -18,7 +18,19 @@ export default class LoginBackground extends Component {
                     {/* <Text style={styles.title}>Fast Hands: where you come to practice the swiftness of your quick hands.</Text> */}
                 </View>
                 <View style={styles.formContainer}>
-                    <LoginScreen />
+                    {/* <LoginScreen /> */}
+                    <Button
+                        title="login"
+                        onPress={() => {
+                            this.props.navigation.navigate('LoginScreen')
+                        }}
+                    />
+                    {/* <TouchableOpacity style={styles.btn}
+                        onPress={() => {
+                            this.props.navigation.navigate('LoginScreen')
+                        }}>
+                        <Text style={styles.input}>Login</Text>
+                    </TouchableOpacity> */}
                 </View>
             </View>
         )

@@ -242,9 +242,9 @@ export default class App extends React.PureComponent {
 
 const AppNavigation = StackNavigator(
   {
-    // LoginScreen: {
-    //   screen: LoginScreen
-    // },
+    LoginScreen: {
+      screen: LoginScreen
+    },
     LoginBackground: {
       screen: LoginBackground
     },
@@ -254,16 +254,13 @@ const AppNavigation = StackNavigator(
     GameScreen: {
       screen: GameScreen
     },
-
     // FastHands: {
     //   screen: FastHands
     // },
-
   },
   {
     initialRouteName: 'LoginBackground',
     // initialRouteName: 'GameScreen',
     }
-    
 );
 
