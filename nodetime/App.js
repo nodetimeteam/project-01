@@ -160,11 +160,14 @@ export default class App extends React.PureComponent {
 
   prepareRecordingPath(audioPath) {
     AudioRecorder.prepareRecordingAtPath(audioPath, {
-      SampleRate: 22050,
+      // SampleRate: 22050,
+      SampleRate: 16000,
       Channels: 1,
-      AudioQuality: "Low",
-      // AudioEncoding: "amr_wb"
+      // AudioQuality: "HIGH",
       AudioEncoding: "amr_wb"
+      // AudioEncoding: "aac"
+      // AudioEncoding: "vorbis"
+      // AudioEncoding: "aac_eld"
     });
   }
 
@@ -220,13 +223,19 @@ export default class App extends React.PureComponent {
         })
         ifstream.onEnd(() => {
           data
-          let dataBlob = 'data:image/png,base64' + data
+          // let dataBlob = 'data:image/png,base64' + data
           debugger;
-          googleSpeech.speechToText(dataBlob)
-            .then((data) => {
+          googleSpeech.speechToText(data)
+            // googleSpeech.speechToText(filePath)
+            .then((dataD) => {
               debugger;
-              let results = data.results[0].alternatives[0]
-              debugger;
+              if (dataD.length >= 2) {
+                let results = dataD.results[0].alternatives[0]
+                console.log(dataD)
+                console.log(results)
+                debugger;
+              }
+              console.log(dataD)
             })
             .catch((err) => {
               console.log(err)
