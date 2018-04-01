@@ -3,7 +3,6 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Card, Icon, FormLabel } from 'react-native-elements';
 import FormInputs from '../components/form-inputs'
 
-
 class LoginScreen extends React.PureComponent {
     static navigationOptions = {
         header: null
@@ -17,7 +16,7 @@ class LoginScreen extends React.PureComponent {
       }
 
     onLogin = e => {
-        
+        this.props.navigation.navigate('WorldScreen')
     }
 
     render() {

@@ -7,7 +7,7 @@ const routes = require('./routes');
 
 dotenv.config();
 
-const port = 5000
+const port = 5001
 
 app.use(bodyParser.json())
 
