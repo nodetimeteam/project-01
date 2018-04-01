@@ -3,6 +3,9 @@ import { StackNavigator } from 'react-navigation';
 import LoginScreen from './src/screens/LoginScreen';
 import GameScreen from './src/screens/GameScreen';
 
+import FastHands from './src/screens/FastHands';
+
+
 export default class App extends React.PureComponent {
   render() {
     return (
@@ -19,9 +22,15 @@ const AppNavigation = StackNavigator(
     GameScreen: {
       screen: GameScreen
     },
+
+    FastHands: {
+      screen: FastHands
+    },
+
   },
   {
-    initialRouteName: 'GameScreen',
+    initialRouteName: 'FastHands',
+    // initialRouteName: 'GameScreen',
   },
 );
 
