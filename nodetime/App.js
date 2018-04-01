@@ -1,13 +1,17 @@
 import React from 'react';
 import { PermissionsAndroid, Platform, View, Button, Image } from 'react-native'
 import { StackNavigator } from 'react-navigation';
-import LoginScreen from './src/screens/LoginScreen';
+import LoginBackground from './src/screens/LoginBackground';
+import LoginScreen from './src/screens/LoginScreen.1';
 import WorldScreen from './src/screens/WorldsScreen';
 import GameScreen from './src/screens/GameScreen';
 import googleSpeech from './src/services/googleSpeech'
 import { AudioRecorder, AudioUtils } from 'react-native-audio';
 import Sound from 'react-native-sound'
 import RNFetchBlob from 'react-native-fetch-blob'
+
+
+// import FastHands from './src/screens/FastHands';
 
 
 export default class App extends React.PureComponent {
@@ -238,18 +242,28 @@ export default class App extends React.PureComponent {
 
 const AppNavigation = StackNavigator(
   {
-    LoginScreen: {
-      screen: LoginScreen
+    // LoginScreen: {
+    //   screen: LoginScreen
+    // },
+    LoginBackground: {
+      screen: LoginBackground
     },
     WorldScreen: {
       screen: WorldScreen
     },
     GameScreen: {
       screen: GameScreen
-    }
+    },
+
+    // FastHands: {
+    //   screen: FastHands
+    // },
+
   },
   {
-    initialRouteName: 'LoginScreen',
-  },
+    initialRouteName: 'LoginBackground',
+    // initialRouteName: 'GameScreen',
+    }
+    
 );
 
