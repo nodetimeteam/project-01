@@ -1,30 +1,26 @@
 import React from 'react';
-import { Text, View, Image } from 'react-native';
+import { Text, View, Image, Alert } from 'react-native';
 import { Card, Button } from 'react-native-elements';
 import ASL from "../services/asl-svg.services";
+import returnRandomLetter from "../services/letters-utility";
 
 class GameScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentLetter: "A"
-    }
+      level: 1,
+      currentLetter: "A",  
+    };
     
   };
 
-  toggleFunction = () => {
-    let list = [
-      "A", "B", "C", "D", "E",
-      "F", "G", "H", "I", "J",
-      "K", "L", "M", "N", "O",
-      "P", "Q", "R", "S", "T",
-      "U", "V", "W", "X", "Y",
-      "Z", 
-      0, 1, 2, 3, 4, 5, 6, 7, 8, 9
-    ];
-    let nextIndex = list.indexOf(this.state.currentLetter) + 1;
-    nextIndex = (nextIndex >= list.length) ? 0 : nextIndex;     // Loops back to start when you reach end
-    this.setState({currentLetter: list[nextIndex]}); 
+  componentDidMount() {
+    this.setState({level: this.props.navigation.state.params.level});
+  };
+
+  nextImage = () => {
+    let newLetter = returnRandomLetter(this.state.level);
+    this.setState({currentLetter: newLetter});
   };
 
   render() {
@@ -39,7 +35,8 @@ class GameScreen extends React.Component {
       >
 
         <Button 
-          onPress={this.toggleFunction} title="Clik Me" 
+          onPress={this.nextImage} 
+          title={"Lvl " + this.state.level}  
         />
 
         {/* Progress Bar (Checkmark, X, Dots) */}
