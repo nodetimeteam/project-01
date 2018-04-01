@@ -2,6 +2,7 @@ import React from 'react';
 import { Text, View, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { Card, Button } from 'react-native-elements';
 import ASL from "../services/asl-svg.services";
+import HandComponent from '../../src/components/hand.component'
 
 class WorldScreen extends React.PureComponent {
 	constructor(props) {
