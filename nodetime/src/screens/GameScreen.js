@@ -17,7 +17,7 @@ class GameScreen extends React.Component {
     this.state = {
       level: 1,
       currentComponent: false,
-      remainingBar: .75,
+      remainingBar: 0,
       currentDecrement: .25,
       currentLetter: "",
       userAnswer: "",
@@ -35,31 +35,33 @@ class GameScreen extends React.Component {
       userScore: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     };
 
-    this.nextImage = this.nextImage.bind(this);
+    // this.nextImage = this.nextImage.bind(this);
+    // this.updateRemainingBar = this.updateRemainingBar.bind(this);
 
   };
 
   // Begins game by going to starting point of showing an ASL image
   componentDidMount() {
     let newLevel = this.props.navigation.state.params.level
+    let newLetter = returnRandomLetter(newLevel)
     this.setState(
       {
         level: newLevel,
         currentComponent: "HandComponent",
-        remainingBar: .75,// 1, Change back to hard coded 1 
-        currentLetter: this.nextImage(newLevel)
+        remainingBar: 1, 
+        currentLetter: newLetter
       }
       // ,
       // () => {
-      //   this.interval = setInterval(updateComponentTiming(), 1000);
+      //   this.interval = setInterval(this.updateRemainingBar(), 1000);
       // }
     );
 
   };
 
-  // updateComponentTiming() {
-  //   if (this.state.currentTime <= 0) {
-
+  // updateRemainingBar() {
+  //   if (this.state.remainingBar <= 0) {
+  //     clearInterval(this.interval);
   //   } else {
 
   //   }
@@ -87,12 +89,12 @@ class GameScreen extends React.Component {
     }
   };
 
-  nextImage() { 
-    this.setState({ currentLetter: returnRandomLetter(this.state.level) });
-  };
+  // nextImage() { 
+  //   this.setState({ currentLetter: returnRandomLetter(this.state.level) });
+  // };
 
   render() {
-
+    alert(JSON.stringify(ASL[this.state.currentLetter]));
     let gameWindow = null;
     if (this.state.currentComponent) {
       gameWindow = <HandComponent
@@ -112,10 +114,10 @@ class GameScreen extends React.Component {
         }}
       >
 
-        <Button
+        {/* <Button
           onPress={this.nextImage}
           title={"Lvl " + this.state.level}
-        />
+        /> */}
 
         {/* Progress Bar (Checkmark, X, Dots) */}
         <Card
