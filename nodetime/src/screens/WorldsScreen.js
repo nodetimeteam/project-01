@@ -48,6 +48,7 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		justifyContent: 'space-between',
 		flexWrap: 'wrap'
+		
 	},
 	button: {
 		alignItems: 'center',
@@ -55,7 +56,7 @@ const styles = StyleSheet.create({
 		backgroundColor: '#DDDDDD',
 		padding: 10,
 		margin: 25,
-		width: 100,
-		height: 100
+		width: 150
+
 	}
 });
