@@ -35,7 +35,6 @@ class WorldScreen extends React.PureComponent {
 		return (
 			<View style={styles.container}>
 				{levels}
-				<HandComponent />
 			</View>
 		);
 	};

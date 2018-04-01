@@ -92,7 +92,6 @@ class GameScreen extends React.Component {
   };
 
   render() {
-
     let gameWindow = null;
     if (this.state.currentComponent) {
       gameWindow = <HandComponent
