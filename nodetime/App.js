@@ -1,12 +1,13 @@
 import React from 'react';
-import { PermissionsAndroid, Platform } from 'react-native'
+import { PermissionsAndroid, Platform, View, Button } from 'react-native'
 import { StackNavigator } from 'react-navigation';
 import LoginScreen from './src/screens/LoginScreen';
 import GameScreen from './src/screens/GameScreen';
 import googleSpeech from './src/services/googleSpeech'
 import { AudioRecorder, AudioUtils } from 'react-native-audio';
+import Sound from 'react-native-sound'
 // let audioPath = AudioUtils.DocumentDirectoryPath + '/active.amr_wb';
-// let audioPath = './active.3gp'
+// let audioPath = './active.amr_wb'
 // AudioRecorder.prepareRecordingAtPath(audioPath, {
 //   SampleRate: 22050,
 //   Channels: 1,
@@ -25,15 +26,41 @@ export default class App extends React.PureComponent {
       paused: false,
       stoppedRecording: false,
       finished: false,
-      // audioPath: AudioUtils.DocumentDirectoryPath + '/active.3gp',
-      audioPath: 'data/misc/active.3gp',
-      // audioPath: './active.3gp',
+      audioPath: AudioUtils.DocumentDirectoryPath + '/active.amr_wb',
+      // audioPath: 'data/misc/active.amr_wb',
+      // audioPath: './active.amr_wb',
       hasPermission: undefined,
     };
     this._checkPermission = this._checkPermission.bind(this)
     this._finishRecording = this._finishRecording.bind(this)
     this.getBase64 = this.getBase64.bind(this)
+    this._record = this._record.bind(this)
+    this._stop = this._stop.bind(this)
+    this._play = this._play.bind(this)
   }
+
+  getBase64(file) {
+    // debugger;
+    // let blob = Base64.encodeToString(file)
+    // blob
+    debugger;
+    var reader = new FileReader();
+
+    debugger;
+    reader.readAsDataURL(file);
+    debugger;
+    let awasome = reader.result
+    awasome
+    debugger;
+    reader.onload = function () {
+      console.log(reader.result);
+    };
+    reader.onerror = function (error) {
+      console.log('Error: ', error);
+    };
+  }
+
+
   async _record() {
     if (this.state.recording) {
       console.warn('Already recording!');
@@ -45,35 +72,36 @@ export default class App extends React.PureComponent {
       return;
     }
 
-    if(this.state.stoppedRecording){
+    if (this.state.stoppedRecording) {
       this.prepareRecordingPath(this.state.audioPath);
     }
 
-    this.setState({recording: true, paused: false});
+    this.setState({ recording: true, paused: false });
 
     try {
+      debugger;
       const filePath = await AudioRecorder.startRecording();
+      debugger;
     } catch (error) {
       console.error(error);
     }
+    debugger;
   }
-
   async _stop() {
     if (!this.state.recording) {
       console.warn('Can\'t stop, not recording!');
       return;
     }
 
-    this.setState({stoppedRecording: true, recording: false, paused: false});
+    this.setState({ stoppedRecording: true, recording: false, paused: false });
 
     try {
       const filePath = await AudioRecorder.stopRecording();
-      
       debugger;
-
-
       if (Platform.OS === 'android') {
-
+        debugger;
+        // let base64Data = this.getBase64(filePath)
+        // base64Data
         debugger;
         this._finishRecording(true, filePath);
       }
@@ -82,22 +110,30 @@ export default class App extends React.PureComponent {
       console.error(error);
     }
   }
+  async _play() {
+    if (this.state.recording) {
+      await this._stop();
+    }
 
-  getBase64(file) {
-    debugger;
-    var reader = new FileReader();
-    debugger;
-    let dataBlob = reader.readAsDataURL(file);
-    dataBlob
-    debugger;
-    reader.onload = function () {
-      console.log(reader.result);
-    };
-    debugger;
-    reader.onerror = function (error) {
-      console.log('Error: ', error);
-    };
-    debugger;
+    // These timeouts are a hacky workaround for some issues with react-native-sound.
+    // See https://github.com/zmxv/react-native-sound/issues/89.
+    setTimeout(() => {
+      var sound = new Sound(this.state.audioPath, '', (error) => {
+        if (error) {
+          console.log('failed to load the sound', error);
+        }
+      });
+
+      setTimeout(() => {
+        sound.play((success) => {
+          if (success) {
+            console.log('successfully finished playing');
+          } else {
+            console.log('playback failed due to audio decoding errors');
+          }
+        });
+      }, 100);
+    }, 100);
   }
 
   _checkPermission() {
@@ -122,61 +158,29 @@ export default class App extends React.PureComponent {
       SampleRate: 22050,
       Channels: 1,
       AudioQuality: "Low",
+      // AudioEncoding: "amr_wb"
       AudioEncoding: "amr_wb"
     });
   }
 
   componentDidMount() {
-
     this._checkPermission()
       .then((hasPermission) => {
         this.setState({ hasPermission });
-        // debugger;
         if (!hasPermission) return;
-        debugger;
         this.prepareRecordingPath(this.state.audioPath);
-        debugger;
         AudioRecorder.onProgress = (data) => {
-          debugger;
-          this.setState({ currentTime: Math.floor(data.currentTime) });
+          this.setState({
+            currentTime: Math.floor(data.currentTime)
+          });
         };
-        debugger;
         AudioRecorder.onFinished = (data) => {
-          debugger;
           // Android callback comes in the form of a promise instead.
           if (Platform.OS === 'ios') {
             this._finishRecording(data.status === "OK", data.audioFileURL);
           }
         };
-        // let sampleAudio = AudioUtils.DocumentDirectoryPath + '/active.3gp'
-        let sampleAudio = 'data/misc/active.3gp'
-        // let base64Audio = this.getBase64(sampleAudio)
-        // this.getBase64(sampleAudio)
-        //   .then((data) => {
-        //     data
-        //     debugger;
-        //   })
-        debugger;
       });
-    debugger;
-    // AudioRecorder.stopRecording()
-    // debugger;
-
-
-
-    debugger;
-    googleSpeech.speechToText()
-      .then((data) => {
-
-        let newData = data.results[0].alternatives[0]
-        debugger;
-        // console.log(sampleAudio)
-        console.log(newData)
-      })
-      .catch((err) => {
-        debugger;
-        console.log(err)
-      })
   }
 
   _finishRecording(didSucceed, filePath) {
@@ -185,11 +189,38 @@ export default class App extends React.PureComponent {
   }
 
   render() {
-
-
-    return (
+    return (<View>
+      <Button
+        title="Record"
+        onPress={() => {
+          this._record()
+        }}
+      />
+      <Button
+        title="Stop"
+        onPress={() => {
+          this._stop()
+            .then((data) => {
+              data
+              debugger;
+              // Promise.resolve()
+            })
+        }}
+      />
+        <Button
+        title="Play"
+        onPress={() => {
+          this._play()
+            .then((data) => {
+              data
+              debugger;
+              // Promise.resolve()
+            })
+        }}
+      />
       <AppNavigation />
-    );
+    </View>
+    )
   }
 }
 
