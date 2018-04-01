@@ -1,5 +1,5 @@
 import React from 'react';
-import { PermissionsAndroid, Platform, View, Button } from 'react-native'
+import { PermissionsAndroid, Platform, View, Button, Image } from 'react-native'
 import { StackNavigator } from 'react-navigation';
 import LoginScreen from './src/screens/LoginScreen';
 import WorldScreen from './src/screens/WorldsScreen';
@@ -7,6 +7,9 @@ import GameScreen from './src/screens/GameScreen';
 import googleSpeech from './src/services/googleSpeech'
 import { AudioRecorder, AudioUtils } from 'react-native-audio';
 import Sound from 'react-native-sound'
+import RNFetchBlob from 'react-native-fetch-blob'
+// import RNFS from 'react-native-fs'
+
 // import { Base64 } from 'js-base64';
 // const Base64 = require('js-base64').Base64
 // let audioPath = AudioUtils.DocumentDirectoryPath + '/active.amr_wb';
@@ -30,8 +33,6 @@ export default class App extends React.PureComponent {
       stoppedRecording: false,
       finished: false,
       audioPath: AudioUtils.DocumentDirectoryPath + '/active.amr_wb',
-      // audioPath: 'data/misc/active.amr_wb',
-      // audioPath: './active.amr_wb',
       hasPermission: undefined,
     };
     this._checkPermission = this._checkPermission.bind(this)
@@ -40,21 +41,22 @@ export default class App extends React.PureComponent {
     this._record = this._record.bind(this)
     this._stop = this._stop.bind(this)
     this._play = this._play.bind(this)
+    // this.writeBlob = this.writeBlob.bind(this)
   }
 
   getBase64(file) {
     // 
     // let blob = Base64.encodeToString(file)
     // blob
-    
+
     var reader = new FileReader();
 
-    
+
     reader.readAsDataURL(file);
-    
+
     let awasome = reader.result
     awasome
-    
+
     reader.onload = function () {
       console.log(reader.result);
     };
@@ -82,13 +84,13 @@ export default class App extends React.PureComponent {
     this.setState({ recording: true, paused: false });
 
     try {
-      
+
       const filePath = await AudioRecorder.startRecording();
-      
+
     } catch (error) {
       console.error(error);
     }
-    
+
   }
   async _stop() {
     if (!this.state.recording) {
@@ -100,12 +102,12 @@ export default class App extends React.PureComponent {
 
     try {
       const filePath = await AudioRecorder.stopRecording();
-      
+
       if (Platform.OS === 'android') {
-        
+
         // let base64Data = this.getBase64(filePath)
         // base64Data
-        
+
         this._finishRecording(true, filePath);
       }
       return filePath;
@@ -158,11 +160,14 @@ export default class App extends React.PureComponent {
 
   prepareRecordingPath(audioPath) {
     AudioRecorder.prepareRecordingAtPath(audioPath, {
-      SampleRate: 22050,
+      // SampleRate: 22050,
+      SampleRate: 16000,
       Channels: 1,
-      AudioQuality: "Low",
-      // AudioEncoding: "amr_wb"
+      // AudioQuality: "HIGH",
       AudioEncoding: "amr_wb"
+      // AudioEncoding: "aac"
+      // AudioEncoding: "vorbis"
+      // AudioEncoding: "aac_eld"
     });
   }
 
@@ -187,21 +192,72 @@ export default class App extends React.PureComponent {
   }
 
   _finishRecording(didSucceed, filePath) {
-    this.setState({ finished: didSucceed });
-    
-    // let base64Blob = Base64.encode(filePath)
-    // base64Blob
-    
-    googleSpeech.speechToText()
-      .then((data) => {
-        data.result[0]
+    this.setState({
+      finished: didSucceed
+    });
+    let data = ''
+    RNFetchBlob.fs.readStream(
+      // file path
+      filePath,
+      // encoding, should be one of `base64`, `utf8`, `ascii`
+      'base64',
+      // (optional) buffer size, default to 4096 (4095 for BASE64 encoded data)
+      // when reading file in BASE64 encoding, buffer size must be multiples of 3.
+      4095)
+      .then((ifstream) => {
+
+        ifstream
         
+        ifstream.open()
+        ifstream.onData((chunk) => {
+          // when encoding is `ascii`, chunk will be an array contains numbers
+          // otherwise it will be a string
+          data += chunk
+          // chunk
+          data
+          
+
+        })
+        ifstream.onError((err) => {
+          console.log('oops', err)
+        })
+        ifstream.onEnd(() => {
+          data
+          // let dataBlob = 'data:image/png,base64' + data
+          
+          googleSpeech.speechToText(data)
+            // googleSpeech.speechToText(filePath)
+            .then((dataD) => {
+              
+              if (dataD.length >= 2) {
+                let results = dataD.results[0].alternatives[0]
+                console.log(dataD)
+                console.log(results)
+                
+              }
+              console.log(dataD)
+            })
+            .catch((err) => {
+              console.log(err)
+            })
+          // < Image source = {{ uri: 'data:image/png,base64' + data }
+          // } />
+        })
       })
-      .catch((err) => {
-        console.log(err)
-      })
+
+
+
+    // googleSpeech.speechToText()
+    //   .then((data) => {
+    //     data.result[0]
+    //   })
+    //   .catch((err) => {
+    //     console.log(err)
+    //   })
     console.log(`Finished recording of duration ${this.state.currentTime} seconds at path: ${filePath}`);
   }
+
+
 
   render() {
     return (
