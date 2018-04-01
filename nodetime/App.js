@@ -6,6 +6,8 @@ import GameScreen from './src/screens/GameScreen';
 import googleSpeech from './src/services/googleSpeech'
 import { AudioRecorder, AudioUtils } from 'react-native-audio';
 import Sound from 'react-native-sound'
+// import { Base64 } from 'js-base64';
+// const Base64 = require('js-base64').Base64
 // let audioPath = AudioUtils.DocumentDirectoryPath + '/active.amr_wb';
 // let audioPath = './active.amr_wb'
 // AudioRecorder.prepareRecordingAtPath(audioPath, {
@@ -40,18 +42,18 @@ export default class App extends React.PureComponent {
   }
 
   getBase64(file) {
-    // debugger;
+    // 
     // let blob = Base64.encodeToString(file)
     // blob
-    debugger;
+    
     var reader = new FileReader();
 
-    debugger;
+    
     reader.readAsDataURL(file);
-    debugger;
+    
     let awasome = reader.result
     awasome
-    debugger;
+    
     reader.onload = function () {
       console.log(reader.result);
     };
@@ -79,13 +81,13 @@ export default class App extends React.PureComponent {
     this.setState({ recording: true, paused: false });
 
     try {
-      debugger;
+      
       const filePath = await AudioRecorder.startRecording();
-      debugger;
+      
     } catch (error) {
       console.error(error);
     }
-    debugger;
+    
   }
   async _stop() {
     if (!this.state.recording) {
@@ -97,12 +99,12 @@ export default class App extends React.PureComponent {
 
     try {
       const filePath = await AudioRecorder.stopRecording();
-      debugger;
+      
       if (Platform.OS === 'android') {
-        debugger;
+        
         // let base64Data = this.getBase64(filePath)
         // base64Data
-        debugger;
+        
         this._finishRecording(true, filePath);
       }
       return filePath;
@@ -185,11 +187,24 @@ export default class App extends React.PureComponent {
 
   _finishRecording(didSucceed, filePath) {
     this.setState({ finished: didSucceed });
+    
+    // let base64Blob = Base64.encode(filePath)
+    // base64Blob
+    
+    googleSpeech.speechToText()
+      .then((data) => {
+        data.result[0]
+        
+      })
+      .catch((err) => {
+        console.log(err)
+      })
     console.log(`Finished recording of duration ${this.state.currentTime} seconds at path: ${filePath}`);
   }
 
   render() {
-    return (<View>
+    return (
+    <View>
       <Button
         title="Record"
         onPress={() => {
@@ -202,19 +217,15 @@ export default class App extends React.PureComponent {
           this._stop()
             .then((data) => {
               data
-              debugger;
-              // Promise.resolve()
             })
         }}
       />
-        <Button
+      <Button
         title="Play"
         onPress={() => {
           this._play()
             .then((data) => {
               data
-              debugger;
-              // Promise.resolve()
             })
         }}
       />
