@@ -1,8 +1,14 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, Image, Text, Button, TouchableOpacity } from 'react-native'
-import LoginScreen from './LoginScreen'
-
+import { StyleSheet, View, Image, Text, TouchableOpacity, Button } from 'react-native'
+// import LoginScreen from './LoginScreen'
+import CheckBox from 'react-native-checkbox'
 export default class LoginBackground extends Component {
+    static navigationOptions = {
+        header: null
+    };
+    onLogin = e => {
+        this.props.navigation.navigate('WorldScreen')
+    }
     render() {
         return (
             <View style={styles.container}>
@@ -19,25 +25,25 @@ export default class LoginBackground extends Component {
                 </View>
                 <View style={styles.formContainer}>
                     {/* <LoginScreen /> */}
-                    <Button
-                        title="login"
-                        onPress={() => {
-                            this.props.navigation.navigate('LoginScreen')
-                        }}
-                    />
-                    {/* <TouchableOpacity style={styles.btn}
-                        onPress={() => {
-                            this.props.navigation.navigate('LoginScreen')
-                        }}>
-                        <Text style={styles.input}>Login</Text>
-                    </TouchableOpacity> */}
+                    <View style={styles.container2}>
+                        <TouchableOpacity style={styles.btn} onPress={this.onLogin}>
+                            <Text style={styles.input}>Continue</Text>
+                        </TouchableOpacity>
+                        <CheckBox style={styles.checkbox}
+                            label='Agree to terms and conditions'
+                            checked={true}
+                            onChange={(checked) => console.log('I am checked', checked)}
+                        />
+                    </View>
                 </View>
             </View>
         )
     }
 }
-
 const styles = StyleSheet.create({
+    container2: {
+        padding: 20
+    },
     header: {
         fontFamily: 'ZapfinoLinotypeOne',
         color: 'white',
@@ -53,15 +59,27 @@ const styles = StyleSheet.create({
         marginRight: 20,
         alignItems: 'center',
         flexGrow: 1,
-        justifyContent: 'center'
+        justifyContent: 'center',
+        marginTop: 100
     },
     logo: {
-        width: 200,
-        height: 200
+        width: 300,
+        height: 300
     },
     title: {
         color: 'white',
         textAlign: 'center',
         // opacity: 0.9
+    },
+    btn: {
+        height: 40,
+        backgroundColor: '#1E90FF',
+        borderRadius: 100,
+        marginBottom: 65
+    },
+    input: {
+        color: 'white',
+        textAlign: 'center',
+        fontSize: 25
     }
 })
