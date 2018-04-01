@@ -30,8 +30,6 @@ export default class App extends React.PureComponent {
       stoppedRecording: false,
       finished: false,
       audioPath: AudioUtils.DocumentDirectoryPath + '/active.amr_wb',
-      // audioPath: 'data/misc/active.amr_wb',
-      // audioPath: './active.amr_wb',
       hasPermission: undefined,
     };
     this._checkPermission = this._checkPermission.bind(this)
