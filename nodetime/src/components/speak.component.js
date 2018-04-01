@@ -1,18 +1,16 @@
 import React from 'react';
-import { View, Text } from 'react-native';
-import { Card } from 'react-native-elements';
+import { Card, Icon } from 'react-native-elements';
+import ProgressBar from './progress-bar.component';
 
 class SpeakComponent extends React.PureComponent {
     
-    render() {
-        <View>
-            <Text>
-                Voice
-            </Text>
-            <Text>
-                Timeout
-            </Text>
-        </View>
+    render() {   
+            <Card>
+                <Icon 
+                    name='modern-mic'
+                />
+                <ProgressBar />
+            </Card>
     }
 }
 

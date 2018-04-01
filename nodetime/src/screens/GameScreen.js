@@ -17,7 +17,7 @@ class GameScreen extends React.Component {
     this.state = {
       level: 1,
       currentComponent: false,
-      remainingBar: 0,
+      remainingBar: 0.8,
       currentDecrement: .25,
       currentLetter: "",
       userAnswer: "",
@@ -94,7 +94,6 @@ class GameScreen extends React.Component {
   // };
 
   render() {
-    alert(JSON.stringify(ASL[this.state.currentLetter]));
     let gameWindow = null;
     if (this.state.currentComponent) {
       gameWindow = <HandComponent

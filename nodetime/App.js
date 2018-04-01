@@ -288,8 +288,7 @@ export default class App extends React.PureComponent {
     //   />
     // </View>
       <AppNavigation />
-
-  )
+    )
   }
 }
 
@@ -306,7 +305,7 @@ const AppNavigation = StackNavigator(
     }
   },
   {
-    initialRouteName: 'WorldScreen',
+    initialRouteName: 'LoginScreen',
   },
 );
 

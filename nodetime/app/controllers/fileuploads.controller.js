@@ -1,4 +1,4 @@
-const fileUploadsService = require('../services/fileuploads.service')
+const fileUploadsService = require('../services/fileuploads.server')
 const apiPrefix = '/api/fileuploads';
 
 
