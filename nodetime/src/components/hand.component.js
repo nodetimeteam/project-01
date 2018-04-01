@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 import { Card } from 'react-native-elements';
-import * as Progress from 'react-native-progress';
+import ProgressBar from './progress-bar.component';
 import ASL from '../services/asl-svg.services';
 
 
@@ -15,12 +15,10 @@ class HandComponent extends React.PureComponent {
             <View>
             <Card>
                 <Image source={this.props.image} />
-                <Card>
-                <Progress.Bar
-                    style={styles.progress}
-                    progress={this.props.remainingBar}
-                    />
-                </Card>
+                <ProgressBar 
+                   style={styles.progress}
+                   progress={this.props.remainingBar}
+                />
             </Card>
         </View>
         )

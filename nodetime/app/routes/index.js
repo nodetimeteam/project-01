@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const users = require('./users')
 const speech = require('./speech')
-const fileUploadsRoutes = require('./fileuploads.routes')
+const fileUploadsRoutes = require('./fileuploads')
 
 module.exports = router;
 
