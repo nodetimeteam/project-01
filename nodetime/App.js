@@ -15,6 +15,7 @@ import { AudioRecorder, AudioUtils } from 'react-native-audio';
 // });
 
 
+
 export default class App extends React.PureComponent {
   constructor() {
     super()
@@ -24,13 +25,81 @@ export default class App extends React.PureComponent {
       paused: false,
       stoppedRecording: false,
       finished: false,
-      audioPath: AudioUtils.DocumentDirectoryPath + '/active.3gp',
+      // audioPath: AudioUtils.DocumentDirectoryPath + '/active.3gp',
+      audioPath: 'data/misc/active.3gp',
       // audioPath: './active.3gp',
       hasPermission: undefined,
     };
     this._checkPermission = this._checkPermission.bind(this)
     this._finishRecording = this._finishRecording.bind(this)
+    this.getBase64 = this.getBase64.bind(this)
   }
+  async _record() {
+    if (this.state.recording) {
+      console.warn('Already recording!');
+      return;
+    }
+
+    if (!this.state.hasPermission) {
+      console.warn('Can\'t record, no permission granted!');
+      return;
+    }
+
+    if(this.state.stoppedRecording){
+      this.prepareRecordingPath(this.state.audioPath);
+    }
+
+    this.setState({recording: true, paused: false});
+
+    try {
+      const filePath = await AudioRecorder.startRecording();
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async _stop() {
+    if (!this.state.recording) {
+      console.warn('Can\'t stop, not recording!');
+      return;
+    }
+
+    this.setState({stoppedRecording: true, recording: false, paused: false});
+
+    try {
+      const filePath = await AudioRecorder.stopRecording();
+      
+      debugger;
+
+
+      if (Platform.OS === 'android') {
+
+        debugger;
+        this._finishRecording(true, filePath);
+      }
+      return filePath;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  getBase64(file) {
+    debugger;
+    var reader = new FileReader();
+    debugger;
+    let dataBlob = reader.readAsDataURL(file);
+    dataBlob
+    debugger;
+    reader.onload = function () {
+      console.log(reader.result);
+    };
+    debugger;
+    reader.onerror = function (error) {
+      console.log('Error: ', error);
+    };
+    debugger;
+  }
+
   _checkPermission() {
     if (Platform.OS !== 'android') {
       return Promise.resolve(true);
@@ -68,26 +137,37 @@ export default class App extends React.PureComponent {
         this.prepareRecordingPath(this.state.audioPath);
         debugger;
         AudioRecorder.onProgress = (data) => {
+          debugger;
           this.setState({ currentTime: Math.floor(data.currentTime) });
         };
         debugger;
         AudioRecorder.onFinished = (data) => {
+          debugger;
           // Android callback comes in the form of a promise instead.
           if (Platform.OS === 'ios') {
             this._finishRecording(data.status === "OK", data.audioFileURL);
           }
         };
+        // let sampleAudio = AudioUtils.DocumentDirectoryPath + '/active.3gp'
+        let sampleAudio = 'data/misc/active.3gp'
+        // let base64Audio = this.getBase64(sampleAudio)
+        // this.getBase64(sampleAudio)
+        //   .then((data) => {
+        //     data
+        //     debugger;
+        //   })
         debugger;
       });
     debugger;
     // AudioRecorder.stopRecording()
     // debugger;
-    let sampleAudio = AudioUtils.DocumentDirectoryPath + '/active.3gp'
 
 
+
+    debugger;
     googleSpeech.speechToText()
       .then((data) => {
-        
+
         let newData = data.results[0].alternatives[0]
         debugger;
         // console.log(sampleAudio)
