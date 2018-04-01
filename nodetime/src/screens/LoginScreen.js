@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Card, Icon, FormLabel } from 'react-native-elements';
 import FormInputs from '../components/form-inputs'
+import userService from '../services/user.service'
 
 
 class LoginScreen extends React.PureComponent {
@@ -17,7 +18,14 @@ class LoginScreen extends React.PureComponent {
       }
 
     onLogin = e => {
-        
+        // this.props.navigation.navigate('GameScreen')
+        userService.getAll()
+            .then(res => {
+                console.log(res)
+            })
+            .catch(err => {
+                console.log(err)
+            })
     }
 
     render() {

@@ -21,7 +21,8 @@ const AppNavigation = StackNavigator(
     },
   },
   {
-    initialRouteName: 'GameScreen',
+    // initialRouteName: 'GameScreen',
+    initialRouteName: 'LoginScreen',
   },
 );
 
