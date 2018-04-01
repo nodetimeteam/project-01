@@ -11,7 +11,7 @@ const googleSpeech = {
         // let blob = fs.readFileSync(filename).toString('base64')
         blob
         console.log(blob)
-        debugger;
+        
         let data = {
             "config": {
                 // "encoding": "FLAC",

@@ -207,7 +207,7 @@ export default class App extends React.PureComponent {
       .then((ifstream) => {
 
         ifstream
-        debugger;
+        
         ifstream.open()
         ifstream.onData((chunk) => {
           // when encoding is `ascii`, chunk will be an array contains numbers
@@ -215,7 +215,7 @@ export default class App extends React.PureComponent {
           data += chunk
           // chunk
           data
-          debugger;
+          
 
         })
         ifstream.onError((err) => {
@@ -224,16 +224,16 @@ export default class App extends React.PureComponent {
         ifstream.onEnd(() => {
           data
           // let dataBlob = 'data:image/png,base64' + data
-          debugger;
+          
           googleSpeech.speechToText(data)
             // googleSpeech.speechToText(filePath)
             .then((dataD) => {
-              debugger;
+              
               if (dataD.length >= 2) {
                 let results = dataD.results[0].alternatives[0]
                 console.log(dataD)
                 console.log(results)
-                debugger;
+                
               }
               console.log(dataD)
             })
