@@ -8,21 +8,21 @@ class HandComponent extends React.PureComponent {
         super(props);
     }
 
-    componentDidMount() {
-        this.progressCountdown();
-    }
+    // componentDidMount() {
+    //     this.progressCountdown();
+    // }
     
-    progressCountdown = () => {
-        let progress = 0;
-        this.setState({ progress });
-          setInterval(() => {
-            progress += Math.random() / 5;
-            if (progress > 1) {
-              progress = 1;
-            }
-            this.setState({ progress });
-          }, 500);
-    }
+    // progressCountdown = () => {
+    //     let progress = 0;
+    //     this.setState({ progress });
+    //       setInterval(() => {
+    //         progress += Math.random() / 5;
+    //         if (progress > 1) {
+    //           progress = 1;
+    //         }
+    //         this.setState({ progress });
+    //       }, 500);
+    // }
 
     render() {
         return(
@@ -33,7 +33,7 @@ class HandComponent extends React.PureComponent {
                 </Text>
                 <Progress.Bar
                     style={styles.progress}
-                    progress={this.state.progress}
+                    // progress={this.state.progress}
                     />
             </Card>
         </View>
