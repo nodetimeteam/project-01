@@ -2,13 +2,14 @@ import axios from 'axios';
 
 const userData = {
     getAll: () => {
-       const config = {
-           method: 'GET'
-       } 
-       return axios.get('http://localhost:5001/api/users')   
+        const config = {
+            method: 'GET'
+        }
+        return axios.get('http://localhost:5001/api/users')
             .then(onSuccess)
             .catch(onError)
-    }
+    },
+    
 }
 
 

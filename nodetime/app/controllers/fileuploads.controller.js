@@ -1,4 +1,4 @@
-const fileUploadsService = require('../services/fileuploads.server')
+const fileUploadsService = require('../services/fileuploads.service')
 const apiPrefix = '/api/fileuploads';
 
 
@@ -14,7 +14,8 @@ function signing(req, res) {
             const returnData = {
                 signedRequest: data,
                 
-                url: `https://${process.env.S3_AWS_BUCKET}.s3.amazonaws.com//${req.query['file-name']}`,
+                // url: `https://${process.env.S3_AWS_BUCKET}.s3.amazonaws.com/${req.query['file-name']}`,
+                url: `https://${process.env.S3_AWS_BUCKET}.signin.aws.amazon.com/console/${req.query['file-name']}`,
             }
 
             res.send(JSON.stringify(returnData));

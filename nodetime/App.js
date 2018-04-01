@@ -8,19 +8,6 @@ import googleSpeech from './src/services/googleSpeech'
 import { AudioRecorder, AudioUtils } from 'react-native-audio';
 import Sound from 'react-native-sound'
 import RNFetchBlob from 'react-native-fetch-blob'
-// import RNFS from 'react-native-fs'
-
-// import { Base64 } from 'js-base64';
-// const Base64 = require('js-base64').Base64
-// let audioPath = AudioUtils.DocumentDirectoryPath + '/active.amr_wb';
-// let audioPath = './active.amr_wb'
-// AudioRecorder.prepareRecordingAtPath(audioPath, {
-//   SampleRate: 22050,
-//   Channels: 1,
-//   AudioQuality: "Low",
-//   AudioEncoding: "amr_wb"
-// });
-
 
 
 export default class App extends React.PureComponent {
@@ -41,22 +28,11 @@ export default class App extends React.PureComponent {
     this._record = this._record.bind(this)
     this._stop = this._stop.bind(this)
     this._play = this._play.bind(this)
-    // this.writeBlob = this.writeBlob.bind(this)
   }
 
   getBase64(file) {
-    // 
-    // let blob = Base64.encodeToString(file)
-    // blob
-
     var reader = new FileReader();
-
-
     reader.readAsDataURL(file);
-
-    let awasome = reader.result
-    awasome
-
     reader.onload = function () {
       console.log(reader.result);
     };
@@ -64,7 +40,6 @@ export default class App extends React.PureComponent {
       console.log('Error: ', error);
     };
   }
-
 
   async _record() {
     if (this.state.recording) {
@@ -102,12 +77,7 @@ export default class App extends React.PureComponent {
 
     try {
       const filePath = await AudioRecorder.stopRecording();
-
       if (Platform.OS === 'android') {
-
-        // let base64Data = this.getBase64(filePath)
-        // base64Data
-
         this._finishRecording(true, filePath);
       }
       return filePath;
@@ -119,9 +89,6 @@ export default class App extends React.PureComponent {
     if (this.state.recording) {
       await this._stop();
     }
-
-    // These timeouts are a hacky workaround for some issues with react-native-sound.
-    // See https://github.com/zmxv/react-native-sound/issues/89.
     setTimeout(() => {
       var sound = new Sound(this.state.audioPath, '', (error) => {
         if (error) {
@@ -183,7 +150,6 @@ export default class App extends React.PureComponent {
           });
         };
         AudioRecorder.onFinished = (data) => {
-          // Android callback comes in the form of a promise instead.
           if (Platform.OS === 'ios') {
             this._finishRecording(data.status === "OK", data.audioFileURL);
           }
@@ -205,9 +171,6 @@ export default class App extends React.PureComponent {
       // when reading file in BASE64 encoding, buffer size must be multiples of 3.
       4095)
       .then((ifstream) => {
-
-        ifstream
-        
         ifstream.open()
         ifstream.onData((chunk) => {
           // when encoding is `ascii`, chunk will be an array contains numbers
@@ -215,45 +178,26 @@ export default class App extends React.PureComponent {
           data += chunk
           // chunk
           data
-          
-
         })
         ifstream.onError((err) => {
           console.log('oops', err)
         })
         ifstream.onEnd(() => {
-          data
-          // let dataBlob = 'data:image/png,base64' + data
-          
           googleSpeech.speechToText(data)
             // googleSpeech.speechToText(filePath)
             .then((dataD) => {
-              
               if (dataD.length >= 2) {
                 let results = dataD.results[0].alternatives[0]
                 console.log(dataD)
                 console.log(results)
-                
               }
               console.log(dataD)
             })
             .catch((err) => {
               console.log(err)
             })
-          // < Image source = {{ uri: 'data:image/png,base64' + data }
-          // } />
         })
       })
-
-
-
-    // googleSpeech.speechToText()
-    //   .then((data) => {
-    //     data.result[0]
-    //   })
-    //   .catch((err) => {
-    //     console.log(err)
-    //   })
     console.log(`Finished recording of duration ${this.state.currentTime} seconds at path: ${filePath}`);
   }
 
