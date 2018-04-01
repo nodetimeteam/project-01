@@ -205,33 +205,33 @@ export default class App extends React.PureComponent {
 
   render() {
     return (
-    <View>
-      <Button
-        title="Record"
-        onPress={() => {
-          this._record()
-        }}
-      />
-      <Button
-        title="Stop"
-        onPress={() => {
-          this._stop()
-            .then((data) => {
-              data
-            })
-        }}
-      />
-      <Button
-        title="Play"
-        onPress={() => {
-          this._play()
-            .then((data) => {
-              data
-            })
-        }}
-      />
+    // <View>
+    //   <Button
+    //     title="Record"
+    //     onPress={() => {
+    //       this._record()
+    //     }}
+    //   />
+    //   <Button
+    //     title="Stop"
+    //     onPress={() => {
+    //       this._stop()
+    //         .then((data) => {
+    //           data
+    //         })
+    //     }}
+    //   />
+    //   <Button
+    //     title="Play"
+    //     onPress={() => {
+    //       this._play()
+    //         .then((data) => {
+    //           data
+    //         })
+    //     }}
+    //   />
+    //   </View>
       <AppNavigation />
-    </View>
     )
   }
 }
