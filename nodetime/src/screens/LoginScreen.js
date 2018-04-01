@@ -1,19 +1,17 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { Card, Icon, FormLabel } from 'react-native-elements';
+import { View, Text, StyleSheet, TouchableOpacity, Button } from 'react-native';
+// import { Card, Icon, FormLabel } from 'react-native-elements';
 import FormInputs from '../components/form-inputs'
+
 
 class LoginScreen extends React.PureComponent {
     static navigationOptions = {
         header: null
-      };
-      constructor(props) {
-          super(props);
-        this.state = {
-            userName: '',
-            password: ''
-        }
-      }
+    };
+    constructor(props) {
+        super(props);
+
+    }
 
     onLogin = e => {
         this.props.navigation.navigate('WorldScreen')
@@ -22,35 +20,12 @@ class LoginScreen extends React.PureComponent {
     render() {
         return (
             <View style={styles.container}>
-            <Card
-              title="Login"
-              tityleStyle={{fontSize: '300'}}
-              containerStyle={{width: '95%', borderRadius: 10}}
-            >
-            <View>
-                <FormLabel>User Name</FormLabel>
-                <FormInputs
-                    onChangeText={userName => this.setState({userName})} 
-                    value={this.state.userName}
-                />
 
-                <FormLabel>Password</FormLabel>
-                <FormInputs 
-                    onChangeText={password => this.setState({password})}
-                    value={this.state.password}
-                    secureTextEntry={true}
-                />
-                
-            </View>
-                <TouchableOpacity 
-                    style={styles.btn}
-                    onPress={this.onLogin}
-                >
-                    <Text style={styles.text}>
-                        Login
-                    </Text>
+
+                <TouchableOpacity style={styles.btn} onPress={this.onLogin}>
+                    <Text style={styles.input}>Continue</Text>
                 </TouchableOpacity>
-                </Card>                
+
             </View>
         );
     }
@@ -59,23 +34,30 @@ class LoginScreen extends React.PureComponent {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
+        padding: 20
     },
     btn: {
-        borderWidth: 1,
-        borderColor: '#000',
-        borderRadius: 50,
-        paddingTop: 20,
-        paddingBottom: 20,
-        marginTop: 20,
-        marginBottom: 20
+        height: 40,
+        backgroundColor: '#D3D3D3',
+        // marginBottom: 10,
+        // color: '#333333',
+        // paddingHorizontal: 10,
+        // borderWidth: 1,
+        // borderColor: '#000',
+        borderRadius: 100,
+        // paddingTop: 10,
+        // paddingBottom: 10,
+        // marginTop: 10,
+        marginBottom: 50
     },
-    text: {
+    input: {
+        // height: 40,
+        // backgroundColor: '#D3D3D3',
+        // marginBottom: 10,
+        color: 'black',
         textAlign: 'center',
-        fontSize: 20
+        fontSize: 25
+        // paddingHorizontal: 10
     }
 })
 
