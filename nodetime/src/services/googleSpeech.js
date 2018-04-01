@@ -1,11 +1,12 @@
-
-
-
 import axios from 'axios';
 import GOOGLE_SPEECH from '../../config/googleSpeech'
 
+const headers = {
+
+}
+
 const googleSpeech = {
-    create: () => {
+    speechToText: () => {
         let data = {
             "config": {
                 "encoding": "FLAC",
