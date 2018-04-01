@@ -10,32 +10,17 @@ class HandComponent extends React.PureComponent {
         super(props);
     }
 
-    // componentDidMount() {
-    //     this.progressCountdown();
-    // }
-    
-    // progressCountdown = () => {
-    //     let progress = 0;
-    //     this.setState({ progress });
-    //       setInterval(() => {
-    //         progress += Math.random() / 5;
-    //         if (progress > 1) {
-    //           progress = 1;
-    //         }
-    //         this.setState({ progress });
-    //       }, 500);
-    // }
-
     render() {
-        console.log(this.props)
         return(
             <View>
             <Card>
-                <Image source={this.props.currentLetter} />
+                <Image source={this.props.image} />
+                <Card>
                 <Progress.Bar
                     style={styles.progress}
                     progress={this.props.remainingBar}
                     />
+                </Card>
             </Card>
         </View>
         )

@@ -17,7 +17,7 @@ class GameScreen extends React.Component {
     this.state = {
       level: 1,
       currentComponent: false,
-      remainingBar: 0,
+      remainingBar: 0.8,
       currentDecrement: .25,
       currentLetter: "",
       userAnswer: "",
