@@ -1,6 +1,7 @@
 import React from 'react';
 import { StackNavigator } from 'react-navigation';
 import LoginScreen from './src/screens/LoginScreen';
+import WorldScreen from './src/screens/WorldsScreen';
 import GameScreen from './src/screens/GameScreen';
 
 import FastHands from './src/screens/FastHands';
@@ -19,6 +20,9 @@ const AppNavigation = StackNavigator(
     LoginScreen: {
       screen: LoginScreen
     },
+    WorldScreen: {
+      screen: WorldScreen
+    },
     GameScreen: {
       screen: GameScreen
     },
@@ -31,6 +35,6 @@ const AppNavigation = StackNavigator(
   {
     initialRouteName: 'FastHands',
     // initialRouteName: 'GameScreen',
-  },
+    }
 );
 
