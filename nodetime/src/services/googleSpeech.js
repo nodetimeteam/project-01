@@ -6,7 +6,9 @@ const headers = {
 }
 
 const googleSpeech = {
-    speechToText: () => {
+    speechToText: (blob) => {
+        blob
+        debugger;
         let data = {
             "config": {
                 "encoding": "FLAC",
@@ -15,7 +17,8 @@ const googleSpeech = {
                 "enableWordTimeOffsets": false
             },
             "audio": {
-                "uri": "gs://cloud-samples-tests/speech/brooklyn.flac"
+                "content": blob
+                // "uri": "gs://cloud-samples-tests/speech/brooklyn.flac"
             }
         }
         const config = {
